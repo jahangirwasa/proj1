@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>ATM Simulator: Transaction Reversal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="fragments/header" />
+      <div class="section">
+        <div class="container">
+          <div th:replace="fragments/settings" />
+            <div class="row">
+              <div class="col-md-3">
+                <div th:replace="fragments/sidebar(type='reverseTransaction')" />
+                </div>
+                <div class="col-md-9">
+                  <div class="">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Transaction Reversal</h3>
+                      </div>
+                      <div class="panel-body">
+                        <form role="form" class="" action="#" th:action="@{/reverseTransaction}" th:object="${simulatorDTO}" method="post">
+                          <div class="col-md-4 col-md-offset-4">
+                            <div class="form-group">
+                              <label class="control-label" for="amount">Original STAN</label>
+                              <input class="form-control" id="amount" placeholder="Enter Orignal STAN" th:field="*{orignalStan}" required="" type="number" maxlength="6" />
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="amount">Original Transaction Date</label>
+                              <input class="form-control" id="amount" placeholder="Enter Orignal Transaction Date" th:field="*{orignalTransactionDate}" required="" type="number" maxlength="4" />
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="amount">Original Transaction Time</label>
+                              <input class="form-control" id="amount" placeholder="Enter Orignal Transaction Time" th:field="*{orignalTransactionTime}" required="" type="number" maxlength="6" />
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="amount">Original Transmission Date Time</label>
+                              <input class="form-control" id="amount" placeholder="Enter Transmission Date Time" th:field="*{orignalTransmissionDateTime}" required="" type="number" maxlength="10" />
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="amount">Reverse Amount</label>
+                              <input class="form-control" id="amount" placeholder="Enter Amount" th:field="*{amount}" type="number"  />
+                            </div>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-info">Reverse Transaction</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="panel panel-info" th:if="${result != null}">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Request Parameters</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="form-horizontal">
+                          <div class="row">
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="rrn">RRN</label>
+                              <div class="col-sm-4">
+                                <input class="form-control" id="rrn" th:value="${rrn}" disabled="" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="stan">STAN</label>
+                              <div class="col-sm-4">
+                                <input class="form-control" id="stan" th:value="${stan}" disabled="" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="transactionDate">Transaction Date</label>
+                              <div class="col-sm-4">
+                                <input class="form-control" id="transactionDate" th:value="${transactionDate}" disabled="" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="transactionTime">Transaction Time</label>
+                              <div class="col-sm-4">
+                                <input class="form-control" id="transactionTime" th:value="${transactionTime}" disabled="" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="transmissionDateTime">Transmission Date Time</label>
+                              <div class="col-sm-4">
+                                <input class="form-control" id="transmissionDateTime" th:value="${transmissionDateTime}" disabled="" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-success" th:if="${result != null and result == '00'}">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Result</h3>
+                      </div>
+                      <div class="panel-body">
+                        <strong class="text-center">
+                        	<strong>Successful</strong>
+                        </strong>
+                      </div>
+                    </div>
+                    <div class="panel panel-danger" th:if="${result != null and result != '00'}">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Result</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="text-center">
+                          <strong>ERROR : </strong>
+                          <strong th:text="${result}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <footer>
+                  <div th:replace="fragments/footer :: footer">&copy; 2014 The Static Templates</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
